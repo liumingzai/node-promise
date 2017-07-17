@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo animate</title>
+<style type="text/css">
+	.ball {
+		width: 40px;
+		height: 40px;
+		border-radius: 20px;
+	}
+	.ball1{
+		background:red;
+	}
+	.ball2{
+		background:yellow;
+	}
+	.ball3{
+		background:green;
+	}
+</style>
+</head>
+<body>
+	<div class="ball ball1" style="margin-left: 0;"></div>
+	<div class="ball ball2" style="margin-left: 0;"></div>
+	<div class="ball ball3" style="margin-left: 0;"></div>
+	<script type="text/javascript">
+	var b1 = document.querySelector('.ball1');
+	var b2 = document.querySelector('.ball2');
+	var b3 = document.querySelector('.ball3');
+
+    //1秒60帧，存在误差
+	function animate(ball,distance,cb) {
+		setTimeout(function() {
+			var mleft = parseInt(ball.style.marginLeft, 10);		
+			if(mleft === distance){
+				cb && cb();
+			}else{
+				if(mleft < distance){
+					mleft++;
+				}else{
+					mleft--;
+				}
+				ball.style.marginLeft = mleft + 'px';
+				animate(ball, distance, cb);
+			}
+		}, 13);
+	};
+
+	//采用传统的回调方式
+	 animate(b1,100,function(){
+			animate(b2,200,function(){
+				animate(b3,300,function(){
+					animate(b3,150,function(){
+						animate(b2,150,function(){
+							animate(b1,150,function(){
+								// end;
+							});
+						});
+					});
+				});
+			});
+		});
+</script>
+</body>
+
+</html>
